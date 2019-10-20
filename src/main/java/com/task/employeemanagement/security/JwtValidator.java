@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Component;
 import com.task.employeemanagement.entity.Manager;
 
+
 @Component
 public class JwtValidator {
 	
