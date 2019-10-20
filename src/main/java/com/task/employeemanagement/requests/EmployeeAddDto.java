@@ -23,8 +23,8 @@ private String address;
 @NotEmpty(message = "mobileNo can not be empty")
 private String mobileNo;
 
-@NotNull(message = "managerId can not be null")
-private Integer managerId;
+@NotNull(message = "managerid can not be null")
+private Integer managerid;
 
 public String getFirstName() {
 	return firstName;
@@ -66,11 +66,11 @@ public void setMobileNo(String mobileNo) {
 	this.mobileNo = mobileNo;
 }
 
-public int getManagerId() {
-	return managerId;
+public int getManagerid() {
+	return managerid;
 }
 
 public void setManagerId(int managerId) {
-	this.managerId = managerId;
+	this.managerid = managerId;
 }
 }

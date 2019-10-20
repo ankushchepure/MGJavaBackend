@@ -14,12 +14,15 @@ import com.task.employeemanagement.entity.Manager;
 import com.task.employeemanagement.repository.ManagerRepo;
 import com.task.employeemanagement.requests.ManagerLoginDto;
 import com.task.employeemanagement.requests.ManagerSignupDto;
+import com.task.employeemanagement.security.JwtGenerator;
 
 @Service
 public class ManagerService {
 
 	@Autowired
 	private ManagerRepo managerRepo;
+	@Autowired
+	private JwtGenerator jwtUtils;
 
 	public WebserviceResultSet managerSignup(ManagerSignupDto managerSignupDto) {
 		WebserviceResultSet webserviceResultSet = new WebserviceResultSet();
@@ -54,9 +57,9 @@ public class ManagerService {
 	}
 	public WebserviceResultSet managerLogin(ManagerLoginDto managerLoginDto) {
 		WebserviceResultSet webserviceResultSet = new WebserviceResultSet();
-		 
+
 		Manager manager= managerRepo.findByEmailAndPassword(managerLoginDto.getEmail(), managerLoginDto.getPassword());
-		
+
 		if(manager!=null) {
 			System.out.print(manager.getLastName());
 			Map<String, Object> map  = new HashMap<String, Object>();
@@ -65,26 +68,26 @@ public class ManagerService {
 			map.put("email",manager.getEmail());
 			map.put("company",manager.getCompany());
 			map.put("id",manager.getId());
-			
+			map.put("token",jwtUtils.generate(manager));
 			webserviceResultSet.setStatus(ResultSetConstants.STATUS_OK);
 			webserviceResultSet.setErrorCode("200");
 			webserviceResultSet.setErrorMessage("User Logged in Sucessfully.");
 			webserviceResultSet.addData("data", map);
-			
-		
+
+
 		} else {
 			webserviceResultSet.setStatus(ResultSetConstants.STATUS_FAIL);
 			webserviceResultSet.setErrorCode("404");
 			webserviceResultSet.setErrorMessage("Invalid Email or password");
 		}
-		
+
 		return webserviceResultSet;
 	}
-	
-	public Optional<Manager> getAllMamagerEmployeeList(Integer id) {
-		
-		return managerRepo.findById(id) ;
-		
-	} 
 
-} 
+	public Optional<Manager> getAllMamagerEmployeeList(Integer id) {
+
+		return managerRepo.findById(id) ;
+
+	}
+
+}

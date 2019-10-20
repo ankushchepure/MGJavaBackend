@@ -32,7 +32,7 @@ public class EmployeeService {
 	
 	public WebserviceResultSet employeeAdd(EmployeeAddDto employeeAddDto) {
 		WebserviceResultSet webserviceResultSet = new WebserviceResultSet();
-		Manager manager = managerRepo.getOne(employeeAddDto.getManagerId());
+		Manager manager = managerRepo.getOne(employeeAddDto.getManagerid());
 		if(manager !=null) {
 			Employee employee=new Employee();
 		    employee.setFirstName(employeeAddDto.getFirstName());
@@ -62,7 +62,7 @@ public class EmployeeService {
 
 	}
 	public List<Employee> getAllEmployee(Integer managerid){
-		return employeeRepo.findByManagerIdOrderByFirstNameDesc(managerid);
+		return employeeRepo.findByManagerIdOrderByFirstNameAsc(managerid);
 	}
 	public Employee getEmpDetails(@Valid Integer managerid, Integer empid) {
 		
@@ -97,7 +97,7 @@ public WebserviceResultSet deleteEmp(Integer managerid, Integer empid) {
 
 	public WebserviceResultSet employeeUpdate(UpdateEmployeeDto updateEmployeeDto) {
 		WebserviceResultSet webserviceResultSet = new WebserviceResultSet();
-		Employee employee = employeeRepo.findByManagerIdAndEmpId(updateEmployeeDto.getManagerId(),updateEmployeeDto.getEmpId());
+		Employee employee = employeeRepo.findByManagerIdAndEmpId(updateEmployeeDto.getManagerid(),updateEmployeeDto.getEmpId());
 		if(employee !=null) {
 		    employee.setFirstName(updateEmployeeDto.getFirstName());
 		    employee.setLastName(updateEmployeeDto.getLastName());

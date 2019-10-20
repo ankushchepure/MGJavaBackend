@@ -36,7 +36,8 @@ class Manager {
 	@RequestMapping(value= {"/test"}, method = RequestMethod.GET)
 	public Map<String, Object> testService(){
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("jwtToken", jwtUtils.generate());
+		com.task.employeemanagement.entity.Manager man = new com.task.employeemanagement.entity.Manager();
+		response.put("jwtToken", jwtUtils.generate(man));
 		return response;
 	}
 
@@ -70,7 +71,7 @@ class Manager {
 			 }
 		return managerService.managerLogin(managerLoginDto);
 	}
-	
+
 	@RequestMapping(value= {"/getAllEmployee"}, method = RequestMethod.GET)
 	public WebserviceResultSet getAllEmployee(@Valid @RequestParam(name = "id") Integer id){
 		Optional<com.task.employeemanagement.entity.Manager> manager= managerService.getAllMamagerEmployeeList(id);
@@ -79,9 +80,9 @@ class Manager {
 		webserviceResultSet.setStatus(ResultSetConstants.STATUS_OK);
 		 webserviceResultSet.setErrorMessage("data fetched");
 		 webserviceResultSet.addData("data",manager);
-		
+
 		 return webserviceResultSet;
-		
+
 	}
 
 

@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Manager {
 
 	@Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int id;
 

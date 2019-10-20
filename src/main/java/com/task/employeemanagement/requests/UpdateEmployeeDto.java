@@ -22,8 +22,8 @@ public class UpdateEmployeeDto {
 	@NotEmpty(message = "mobileNo can not be empty")
 	private String mobileNo;
 
-	@NotNull(message = "managerId can not be null")
-	private Integer managerId;
+	@NotNull(message = "managerid can not be null")
+	private Integer managerid;
 	
 	@NotNull(message = "empid can not be null")
 	private Integer empId;
@@ -68,12 +68,12 @@ public class UpdateEmployeeDto {
 		this.mobileNo = mobileNo;
 	}
 
-	public Integer getManagerId() {
-		return managerId;
+	public Integer getManagerid() {
+		return managerid;
 	}
 
-	public void setManagerId(Integer managerId) {
-		this.managerId = managerId;
+	public void setManagerid(Integer managerId) {
+		this.managerid = managerId;
 	}
 
 	public Integer getEmpId() {

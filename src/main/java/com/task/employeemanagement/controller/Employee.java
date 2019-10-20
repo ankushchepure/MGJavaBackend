@@ -27,8 +27,10 @@ import java.util.List;
 @RequestMapping("/employee")
 public class Employee {
 	@Autowired
+	JwtGenerator jwtUtil;
+	@Autowired
 	private EmployeeService employeeService;
-	
+
 	@RequestMapping(value= {"/add"}, method = RequestMethod.POST)
 	public WebserviceResultSet employeeAdd(@Valid @RequestBody EmployeeAddDto employeeAddDto, BindingResult result){
 		Map<String, Object> map  = new HashMap<String, Object>();
@@ -43,7 +45,7 @@ public class Employee {
 			 }
 		return employeeService.employeeAdd(employeeAddDto);
 	}
-	
+
 	@RequestMapping(value= {"/getEmployeeList"}, method = RequestMethod.GET)
 	public WebserviceResultSet getAllEmployee(@Valid @RequestParam(name = "managerid") Integer managerid){
 		List<com.task.employeemanagement.entity.Employee> employeeList= employeeService.getAllEmployee(managerid);
@@ -53,9 +55,9 @@ public class Employee {
 		 webserviceResultSet.setErrorMessage("data fetched");
 		 webserviceResultSet.addData("data",employeeList);
 		 return webserviceResultSet;
-		
+
 	}
-	
+
 	@RequestMapping(value= {"/getEmployeeDetails"}, method = RequestMethod.GET)
 	public WebserviceResultSet getEmployeeDetails(@RequestParam(name = "managerid") Integer managerid,@RequestParam(name = "empid") Integer empid){
 		com.task.employeemanagement.entity.Employee employee= employeeService.getEmpDetails(managerid,empid);
@@ -65,13 +67,13 @@ public class Employee {
 		 webserviceResultSet.setErrorMessage("data fetched");
 		 webserviceResultSet.addData("data",employee);
 		 return webserviceResultSet;
-		
+
 	}
 	@RequestMapping(value= {"/deleteEmployee"}, method = RequestMethod.GET)
 	public WebserviceResultSet deleteEmp(@RequestParam(name = "managerid") Integer managerid,@RequestParam(name = "empid") Integer empid){
-		
+
 		 return employeeService.deleteEmp(managerid,empid);
-		
+
 	}
 	@RequestMapping(value= {"/update"}, method = RequestMethod.POST)
 	public WebserviceResultSet employeeUpdate(@Valid @RequestBody UpdateEmployeeDto updateEmployeeDto, BindingResult result){
@@ -86,5 +88,23 @@ public class Employee {
 				 return webserviceResultSet;
 			 }
 		return employeeService.employeeUpdate(updateEmployeeDto);
+	}
+
+	@RequestMapping(value= {"/gettest"}, method = RequestMethod.GET)
+	public WebserviceResultSet employeeAdd(@RequestParam int managerid){
+		Map<String, Object> map  = new HashMap<String, Object>();
+			WebserviceResultSet webserviceResultSet = new WebserviceResultSet();
+			webserviceResultSet.setErrorMessage("success");
+		return webserviceResultSet;
+	}
+
+	@RequestMapping(value= {"/posttest"}, method = RequestMethod.POST)
+	public WebserviceResultSet postEmpl(@RequestBody com.task.employeemanagement.entity.Manager man){
+		Map<String, Object> map  = new HashMap<String, Object>();
+			WebserviceResultSet webserviceResultSet = new WebserviceResultSet();
+			webserviceResultSet.setErrorMessage("success");
+
+			webserviceResultSet.addData("empl", jwtUtil.generate(man));;
+		return webserviceResultSet;
 	}
 }
